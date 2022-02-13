@@ -1,9 +1,10 @@
-FROM python:3.6.5-alpine3.7
+FROM python:3.10.2-alpine
 
 RUN apk --no-cache add sqlite
 RUN mkdir /data
 
-RUN pip install pipenv
+RUN pip --no-cache install pipenv
+ENV TZ UTC
 
 WORKDIR /app
 
@@ -11,5 +12,4 @@ COPY Pipfile Pipfile
 COPY Pipfile.lock Pipfile.lock
 
 RUN pipenv install --deploy --system
-
-COPY . /app
+RUN pip install ipdb
