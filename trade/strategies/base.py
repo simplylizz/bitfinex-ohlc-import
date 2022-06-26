@@ -31,12 +31,11 @@ class BaseStrategy(abc.ABC):
     def buy_first(self, max_amount):
         if self.second_amount > 0:
             self.buys += 1
-            second_amount = min(self.second_amount, max_amount)
-            buy_amount = second_amount / self.last_price
+            buy_amount = min(self.second_amount / self.last_price, max_amount)
 
             self.first_price = (self.first_amount * self.first_price + buy_amount * self.last_price) / (self.first_amount + buy_amount)
             self.first_amount += buy_amount
-            self.second_amount -= second_amount
+            self.second_amount -= buy_amount * self.last_price
 
     def sell_first(self, max_amount):
         if self.first_amount > 0:
@@ -48,7 +47,8 @@ class BaseStrategy(abc.ABC):
     def print_stats(self):
         print(f"In {self.pair[1]}: {self.second_amount}")
         print(f"In {self.pair[0]}: {self.first_amount}")
-        print("Totals")
+        # print('\033[1', 'Totals', '\033[0m')
+        print("**Totals**")
         print(f"In {self.pair[1]}: {self.get_converted_second()}")
         print(f"In {self.pair[0]}: {self.get_converted_first()}")
         print("###")

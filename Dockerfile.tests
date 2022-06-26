@@ -1,0 +1,3 @@
+FROM bitfinex:latest
+
+RUN pip install pytest

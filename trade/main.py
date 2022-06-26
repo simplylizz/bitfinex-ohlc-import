@@ -10,26 +10,48 @@ def get_strategies(pair):
             first_price=0,
             second_amount=10000,
             pair=pair,
+            sell_bound=.95,
         ),
-        strategies.anti_hodl.Strategy(
+        strategies.dumb_001.Strategy(
             first_amount=0,
             first_price=0,
             second_amount=10000,
             pair=pair,
+            sell_bound=.85,
         ),
-        strategies.hodl.Strategy(
+        strategies.dumb_001.Strategy(
             first_amount=0,
             first_price=0,
             second_amount=10000,
             pair=pair,
+            sell_bound=.98,
         ),
+        strategies.dumb_001.Strategy(
+            first_amount=0,
+            first_price=0,
+            second_amount=10000,
+            pair=pair,
+            sell_bound=.99,
+        ),
+        # strategies.anti_hodl.Strategy(
+        #     first_amount=0,
+        #     first_price=0,
+        #     second_amount=10000,
+        #     pair=pair,
+        # ),
+        # strategies.hodl.Strategy(
+        #     first_amount=0,
+        #     first_price=0,
+        #     second_amount=10000,
+        #     pair=pair,
+        # ),
     )
 
 
 def main():
     start_dates = {
-        "All": datetime.datetime(1970, 1, 1),
-        "180d": datetime.datetime.now() - datetime.timedelta(days=180),
+        # "All": datetime.datetime(1970, 1, 1),
+        # "180d": datetime.datetime.now() - datetime.timedelta(days=180),
         "90": datetime.datetime.now() - datetime.timedelta(days=90),
         "30": datetime.datetime.now() - datetime.timedelta(days=30),
     }
@@ -53,6 +75,7 @@ def main():
             eng.run()
             end = datetime.datetime.now()
             print(f'Time: {end - start}')
+        print("\n---\n")
 
 
 if __name__ == '__main__':
