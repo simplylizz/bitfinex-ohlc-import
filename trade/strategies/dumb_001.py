@@ -1,4 +1,12 @@
+import dataclasses
+
 from .base import BaseStrategy
+
+
+@dataclasses.dataclass
+class Params:
+    cool_down_period: int
+    sell_bound: float
 
 
 class Strategy(BaseStrategy):
@@ -6,21 +14,21 @@ class Strategy(BaseStrategy):
 
     def __init__(
             self,
-            sell_bound,
+            params: Params,
             *args,
             **kwargs,
     ):
         super().__init__(*args, **kwargs)
 
-        self.sell_bound = sell_bound
+        self.params = params
         self.cool_down = 0
-        self.name = f"Dumb Strategy 001 [sell_bound={sell_bound}]"
+        self.name = f"Dumb Strategy 001 [{self.params}]"
 
     def buy_first(self, max_amount):
         if self.check_cool_down():
             return
         super().buy_first(max_amount)
-        self.sell_price = self.last_price * self.sell_bound
+        self.sell_price = self.last_price * self.params.sell_bound
         self.set_cool_down()
 
     def sell_first(self, max_amount):
@@ -42,9 +50,8 @@ class Strategy(BaseStrategy):
             self.sell_first(self.first_amount)
             self.sell_price = 0
             self.first_price = 0
-        elif self.last_price * self.sell_bound >= self.sell_price:
-            self.sell_price = self.last_price * self.sell_bound
+        else:
             self.buy_first(self.buy_amount_in_second / current_price)
 
     def set_cool_down(self):
-        self.cool_down = 60 * 6 # 6 hours
+        self.cool_down = self.params.cool_down_period

@@ -10,28 +10,40 @@ def get_strategies(pair):
             first_price=0,
             second_amount=10000,
             pair=pair,
-            sell_bound=.95,
+            params=strategies.dumb_001.Params(
+                sell_bound=.95,
+                cool_down_period=24*60,
+            ),
         ),
         strategies.dumb_001.Strategy(
             first_amount=0,
             first_price=0,
             second_amount=10000,
             pair=pair,
-            sell_bound=.85,
+            params=strategies.dumb_001.Params(
+                sell_bound=.85,
+                cool_down_period=24 * 60,
+            ),
         ),
         strategies.dumb_001.Strategy(
             first_amount=0,
             first_price=0,
             second_amount=10000,
             pair=pair,
-            sell_bound=.98,
+            params=strategies.dumb_001.Params(
+                sell_bound=.98,
+                cool_down_period=24 * 60,
+            ),
         ),
         strategies.dumb_001.Strategy(
             first_amount=0,
             first_price=0,
             second_amount=10000,
             pair=pair,
-            sell_bound=.99,
+            params=strategies.dumb_001.Params(
+                sell_bound=.99,
+                cool_down_period=24 * 60,
+            ),
         ),
         # strategies.anti_hodl.Strategy(
         #     first_amount=0,
