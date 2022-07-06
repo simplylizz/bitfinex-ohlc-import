@@ -10,6 +10,11 @@ class Params:
 
 
 class Strategy(BaseStrategy):
+    """
+    - Buy in portions
+    - Sell if price is lower than <avg_price> * <sell_threshold> (where sell threshold is in (0, 1])
+    """
+
     buy_amount_in_second = 1000
 
     def __init__(

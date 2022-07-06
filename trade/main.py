@@ -5,44 +5,27 @@ import strategies
 
 def get_strategies(pair):
     return (
-        strategies.dumb_001.Strategy(
+        # strategies.dumb_001.Strategy(
+        #     first_amount=0,
+        #     first_price=0,
+        #     second_amount=10_000,
+        #     pair=pair,
+        #     params=strategies.dumb_001.Params(
+        #         sell_bound=.95,
+        #         cool_down_period=24*60,
+        #     ),
+        # ),
+        strategies.average_001.Strategy(
             first_amount=0,
             first_price=0,
-            second_amount=10000,
+            second_amount=10_000,
             pair=pair,
-            params=strategies.dumb_001.Params(
-                sell_bound=.95,
-                cool_down_period=24*60,
-            ),
-        ),
-        strategies.dumb_001.Strategy(
-            first_amount=0,
-            first_price=0,
-            second_amount=10000,
-            pair=pair,
-            params=strategies.dumb_001.Params(
-                sell_bound=.85,
-                cool_down_period=24 * 60,
-            ),
-        ),
-        strategies.dumb_001.Strategy(
-            first_amount=0,
-            first_price=0,
-            second_amount=10000,
-            pair=pair,
-            params=strategies.dumb_001.Params(
-                sell_bound=.98,
-                cool_down_period=24 * 60,
-            ),
-        ),
-        strategies.dumb_001.Strategy(
-            first_amount=0,
-            first_price=0,
-            second_amount=10000,
-            pair=pair,
-            params=strategies.dumb_001.Params(
-                sell_bound=.99,
-                cool_down_period=24 * 60,
+            params=strategies.average_001.Params(
+                sell_bound=1.05,
+                buy_bound=.95,
+                stop_loss_bound=.9,
+                window_size=60*6,  # in minutes
+                cool_down_period=60*24*1,  # in minutes
             ),
         ),
         # strategies.anti_hodl.Strategy(
@@ -63,14 +46,14 @@ def get_strategies(pair):
 def main():
     start_dates = {
         # "All": datetime.datetime(1970, 1, 1),
-        # "180d": datetime.datetime.now() - datetime.timedelta(days=180),
+        "180d": datetime.datetime.now() - datetime.timedelta(days=180),
         "90": datetime.datetime.now() - datetime.timedelta(days=90),
         "30": datetime.datetime.now() - datetime.timedelta(days=30),
     }
     pairs = (
         ('btc', 'usd'),
-        ('eth', 'usd'),
-        ('eth', 'btc'),
+        # ('eth', 'usd'),
+        # ('eth', 'btc'),
     )
 
     for pair in pairs:

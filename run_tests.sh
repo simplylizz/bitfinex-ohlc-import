@@ -5,4 +5,4 @@ docker run \
     -it \
     --rm \
     bitfinex-tests \
-    pytest tests/trade
+    pytest -xs tests/trade
